@@ -18,23 +18,21 @@ void openfolders(char *fileName)
     while ((dir = readdir(dp)) != NULL)
     {
         char *fileName = dir->d_name;
-        if (dir->d_ino == 0 || strcmp(fileName,".") == 0 || strcmp(fileName, "..") == 0)
+        if (dir->d_ino == 0 || strcmp(fileName, ".") == 0 || strcmp(fileName, "..") == 0)
         {
             continue;
         }
 
         if (dir->d_type & DT_DIR)
         {
-            
+
             printf("%s\n", fileName);
 
             openfolders(fileName);
             chdir("..");
         }
     }
-
 }
-
 
 int main(int argc, char *argv[])
 {
@@ -44,21 +42,19 @@ int main(int argc, char *argv[])
     if (argc < 2)
     {
         /* code */
-        fileName=".";
-    }else if(argc ==2)
+        fileName = ".";
+    }
+    else if (argc == 2)
     {
-        fileName=argv[1];
-    }else
+        fileName = argv[1];
+    }
+    else
     {
         printf("lsdir: too many files.\n");
         exit(1);
     }
-    
-    
-    
 
     openfolders(fileName);
-
 
     return 0;
 }
